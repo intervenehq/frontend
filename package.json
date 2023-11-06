@@ -1,4 +1,5 @@
 {
+  "version": "0.1.0",
   "name": "@intervene/frontend",
   "main": "lib/main/index.js",
   "typings": "lib/main/index.d.ts",
@@ -24,6 +25,9 @@
     "files": [
       "!lib/module/**"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "npm run build:main && npm run build:module",
