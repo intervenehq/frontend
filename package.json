@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "name": "@intervene/frontend",
   "main": "lib/main/index.js",
   "typings": "lib/main/index.d.ts",
@@ -25,6 +25,10 @@
     "files": [
       "!lib/module/**"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intervenehq/frontend"
   },
   "publishConfig": {
     "access": "public"
