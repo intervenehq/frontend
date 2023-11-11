@@ -2,26 +2,27 @@ import { render } from "preact";
 import { Intervene } from "@intervene/frontend";
 
 const INTERVENE_PUBLIC_KEY = import.meta.env["VITE_INTERVENE_PUBLIC_KEY"];
+const INTERVENE_HOST = import.meta.env["VITE_INTERVENE_HOST"];
 
 // ====== FOR DEMO PURPOSES ONLY. THIS SHOULD NOT EXIST IN FRONTEND
 const INTERVENE_PRIVATE_KEY = import.meta.env["VITE_INTERVENE_PRIVATE_KEY"];
 // ======
 
-const PROVIDER = "google";
+const PROVIDER = "google-mail";
 const USER_ID = "me@sudhanshug.com";
 
 const intervene = new Intervene({
   publicKey: INTERVENE_PUBLIC_KEY,
 
   // adding host is optional, you can omit this entirely
-  host: import.meta.env["VITE_INTERVENE_HOST"],
+  host: INTERVENE_HOST,
 });
 
 export function App() {
   const auth = async () => {
     // ====== FOR DEMO PURPOSES ONLY. THIS SHOULD HAPPEN IN THE BACKEND
     const response = await fetch(
-      `http://localhost:3000/v1/integrations/${PROVIDER}/connections/${USER_ID}/hmac_digest`,
+      `${INTERVENE_HOST}/v1/integrations/${PROVIDER}/connections/${USER_ID}/hmac_digest`,
       {
         headers: {
           Authorization: `Bearer ${INTERVENE_PRIVATE_KEY}`,
