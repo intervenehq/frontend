@@ -8,7 +8,7 @@ const INTERVENE_HOST = import.meta.env["VITE_INTERVENE_HOST"];
 const INTERVENE_PRIVATE_KEY = import.meta.env["VITE_INTERVENE_PRIVATE_KEY"];
 // ======
 
-const PROVIDER = "google-mail";
+const PROVIDER = "google";
 const USER_ID = "me@sudhanshug.com";
 
 const intervene = new Intervene({
@@ -34,6 +34,10 @@ export function App() {
 
     const result = await intervene.auth(PROVIDER, USER_ID, hmacDigest);
     console.log(result);
+
+    if (result.connected) {
+      alert("connection successfull");
+    }
   };
 
   return (
