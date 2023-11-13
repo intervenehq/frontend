@@ -10,7 +10,7 @@ const INTERVENE_PRIVATE_KEY = import.meta.env["VITE_INTERVENE_PRIVATE_KEY"];
 // ======
 
 const PROVIDER = "google";
-const USER_ID = "me@sudhanshug.com";
+const USER_ID = "intervene-demo-user-id";
 
 const intervene = new Intervene({
   publicKey: INTERVENE_PUBLIC_KEY,
