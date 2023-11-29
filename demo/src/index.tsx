@@ -37,7 +37,7 @@ export function App() {
     console.log(result);
 
     if (result.connected) {
-      alert("connection successfull");
+      alert("connection successful");
     }
   };
 
