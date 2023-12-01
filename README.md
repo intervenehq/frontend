@@ -1,3 +1,3 @@
 # @intervene/frontend
 
-Please refrer to [the docs](https://intervene.run/docs) for more information.
+Please refrer to [the docs](https://docs.intervene.run/frontend) for more information.
