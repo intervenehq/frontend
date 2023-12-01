@@ -3,7 +3,7 @@ import { Intervene } from "@intervene/frontend";
 
 const INTERVENE_PUBLIC_KEY = import.meta.env["VITE_INTERVENE_PUBLIC_KEY"];
 const INTERVENE_HOST =
-  import.meta.env["VITE_INTERVENE_HOST"] || "https://intervene.run";
+  import.meta.env["VITE_INTERVENE_HOST"] || "https://api.intervene.run";
 
 // ====== FOR DEMO PURPOSES ONLY. THIS SHOULD NOT EXIST IN FRONTEND
 const INTERVENE_PRIVATE_KEY = import.meta.env["VITE_INTERVENE_PRIVATE_KEY"];

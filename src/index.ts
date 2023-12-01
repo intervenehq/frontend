@@ -15,7 +15,7 @@ export class Intervene {
   }
 
   get host() {
-    return this.options.host ?? "https://intervene.run";
+    return this.options.host ?? "https://api.intervene.run";
   }
 
   async configure() {
