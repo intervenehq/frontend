@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "es2017",
-    "outDir": "lib/main",
+    "target": "ESNext",
     "rootDir": "src",
     "moduleResolution": "node",
-    "module": "commonjs",
+    "module": "ESNext",
     "declaration": true,
     "skipLibCheck": true,
     "inlineSourceMap": true,
@@ -39,7 +38,7 @@
     // "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
 
     "lib": ["es2017", "DOM"],
-    "typeRoots": ["node_modules/@types"]
+    "types": ["bun-types"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"],
   "exclude": ["node_modules/**"],
