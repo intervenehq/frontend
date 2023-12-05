@@ -1,17 +1,15 @@
 {
-  "version": "0.1.5",
+  "version": "0.1.6",
   "name": "@intervene/frontend",
   "type": "module",
-  "source": "src/index.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.modern.js",
+  "umd:main": "./dist/index.umd.js",
   "exports": {
-    "types": "./dist/index.d.ts",
     "require": "./dist/index.cjs",
     "default": "./dist/index.modern.js"
   },
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
-  "unpkg": "./dist/index.umd.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/intervenehq/frontend"
@@ -28,9 +26,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
-    "typegen": "bun run openapi-typescript https://intervene.run/openapi.json -o ./src/types/schema.ts"
+    "typegen": "bun run openapi-typescript https://intervene.run/openapi.json -o ./src/types/schema.ts",
+    "build": "microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd  --output dist/index.js",
+    "dev": "microbundle watch --tsconfig ./tsconfig.json  --format modern,cjs,umd  --output dist/index.js"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.9.0",
