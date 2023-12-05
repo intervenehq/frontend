@@ -1,4 +1,6 @@
+import $ky, { KyInstance } from "ky";
 import Nango from "@nangohq/frontend";
+import { paths } from './types/schema';
 
 export interface InterveneClientOptions {
   publicKey: string;
@@ -7,30 +9,25 @@ export interface InterveneClientOptions {
 
 export class Intervene {
   nango?: Nango;
+  ky: KyInstance
 
-  constructor(public options: InterveneClientOptions) {}
-
-  get publicKey() {
-    return this.options.publicKey;
-  }
-
-  get host() {
-    return this.options.host ?? "https://api.intervene.run";
+  constructor(options: InterveneClientOptions) {
+    this.ky = $ky.create({
+      prefixUrl: options.host ?? "https://api.intervene.run",
+      headers: {
+        Authorization: `Bearer ${options.publicKey}`,
+      },
+      cache: "no-cache",
+    });
   }
 
   async configure() {
-    const response = await fetch(`${this.host}/v1/config`, {
-      headers: this.authHeader,
-    });
+    const response = await this.ky.get("v1/config");
 
-    if (!response.ok) {
-      throw new Error(await response.text());
-    }
-
-    const responseJson = await response.json();
+    const result = (await response.json()) as paths['/v1/config']['get']['responses']['200']['content']['application/json'];
 
     this.nango = new Nango({
-      publicKey: responseJson.nango_public_key,
+      publicKey: result.nango_public_key,
     });
   }
 
@@ -73,48 +70,24 @@ export class Intervene {
   }
 
   private async getConnectionParams(provider: string, userId: string) {
-    const url = new URL(`${this.host}/v1/integrations/${provider}/connections`);
-    url.searchParams.set("user_id", userId);
-
-    const response = await fetch(url.toString(), {
-      headers: this.authHeader,
+    const response = await this.ky.get('v1/integrations/{provider}/connections'.replace('{provider}', provider), {
+      searchParams: {
+        user_id: userId,
+      }
     });
 
-    if (!response.ok) {
-      throw new Error(await response.text());
-    }
-
-    const responseJson = await response.json();
-
-    return responseJson as {
-      nango_provider_config_key: string;
-      nango_connection_id: string;
-    };
+    return (await response.json()) as paths['/v1/integrations/{provider}/connections']['get']['responses']['200']['content']['application/json'];
   }
 
   private async getConnectionStatus(provider: string, userId: string) {
-    const url = new URL(
-      `${this.host}/v1/integrations/${provider}/connections/${userId}`
+    const response = await this.ky.get(
+      "v1/integrations/{provider}/connections/{user_id}"
+        .replace("{provider}", provider)
+        .replace("{user_id}", userId)
     );
 
-    const response = await fetch(url.toString(), {
-      headers: this.authHeader,
-    });
+    const result = (await response.json()) as paths['/v1/integrations/{provider}/connections/{user_id}']['get']['responses']['200']['content']['application/json'];
 
-    if (!response.ok) {
-      throw new Error(await response.text());
-    }
-
-    const responseJson = await response.json();
-
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    return responseJson as {};
-  }
-
-  private get authHeader() {
-    return {
-      Authorization: `Bearer ${this.publicKey}`,
-      "Content-Type": "application/json",
-    };
+    return result;
   }
 }
